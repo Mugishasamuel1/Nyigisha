@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyigisha - Rwanda's Digital Learning Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #22d3ee;
+            --accent-warm: #fbbf24;
+            --accent-green: #34d399;
+            --accent-pink: #f472b6;
+            --accent-purple: #a78bfa;
+            --surface: #ffffff;
+            --surface-elevated: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --gradient-1: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            --gradient-2: linear-gradient(135deg, #22d3ee 0%, #34d399 100%);
+            --gradient-3: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+            --gradient-rwanda: linear-gradient(135deg, #00A1DE 0%, #FAB612 50%, #009E49 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        .dark {
+            --primary: #f8fafc;
+            --primary-light: #e2e8f0;
+            --surface: #0f172a;
+            --surface-elevated: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.4);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--surface);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(167, 139, 250, 0.02) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .dark body::before {
+            background:
+                radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+        }
+
+        .page {
+            display: none;
+            opacity: 0;
+        }
+
+        .page.active {
+            display: block;
+            animation: pageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.05s; }
+        .stagger-2 { animation-delay: 0.1s; }
+        .stagger-3 { animation-delay: 0.15s; }
+        .stagger-4 { animation-delay: 0.2s; }
+        .stagger-5 { animation-delay: 0.25s; }
+        .stagger-6 { animation-delay: 0.3s; }
+
+        .animate-in {
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .header {
+            background: var(--gradient-1);
+            color: #ffffff;
+            padding: 0.875rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.3), transparent);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-2);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #0f172a;
+            font-weight: 800;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            padding: 0.625rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .nav-menu li:hover {
+            color: #ffffff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-menu li.active {
+            background: var(--accent);
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        /* Language Toggle Button */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--accent);
+        }
+
+        .language-toggle.active {
+            background: var(--gradient-rwanda);
+            border-color: #ffffff;
+        }
+
+        .language-flag {
+            font-size: 1.25rem;
+        }
+
+        .language-text {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-3);
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: var(--gradient-1);
+            border-radius: var(--radius-xl);
+            padding: 3.5rem 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(34, 211, 238, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 40%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(34, 211, 238, 0.2);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .welcome-badge::before {
+            content: '🇷🇼';
+        }
+
+        .welcome-banner h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .welcome-banner h1 span {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-banner p {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 600px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .section-link {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .section-link:hover {
+            opacity: 0.8;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-2);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-icon.cyan { background: rgba(34, 211, 238, 0.15); }
+        .card-icon.yellow { background: rgba(251, 191, 36, 0.15); }
+        .card-icon.green { background: rgba(52, 211, 153, 0.15); }
+        .card-icon.purple { background: rgba(167, 139, 250, 0.15); }
+        .card-icon.pink { background: rgba(244, 114, 182, 0.15); }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        /* Video Player Styles */
+        .video-container {
+            background: #0f172a;
+            border-radius: var(--radius-lg);
+            aspect-ratio: 16/9;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            color: #ffffff;
+            padding: 2rem;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 2rem;
+            padding-left: 4px;
+            border: none;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-container:hover .video-controls {
+            opacity: 1;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .progress-bar-video {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 100px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar-video .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 100px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .time-display {
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--gradient-1);
+            border-radius: var(--radius-xl);
+            padding: 3rem 2.5rem;
+            margin-bottom: 2.5rem;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '🎓';
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8rem;
+            opacity: 0.1;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .team-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card p {
+            font-size: 0.9375rem;
+            opacity: 0.8;
+        }
+
+        /* Entrepreneurship Section */
+        .entrepreneurship-hero {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: var(--radius-xl);
+            padding: 3rem 2.5rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .entrepreneurship-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-content {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lesson-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .lesson-content ul {
+            margin-left: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .lesson-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-2);
+            color: #0f172a;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-menu, .user-name {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .welcome-banner {
+                padding: 2rem 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .language-toggle {
+                padding: 0.5rem 0.75rem;
+            }
+
+            .language-text {
+                display: none;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-1);
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        .mobile-nav.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-nav-close {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-nav-menu {
+            list-style: none;
+        }
+
+        .mobile-nav-menu li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .mobile-nav-menu li.active {
+            color: var(--accent);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-top: 1rem;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .progress-label {
+            color: var(--text-secondary);
+        }
+
+        .progress-value {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-2);
+            border-radius: 100px;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Continue Learning Card */
+        .continue-card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .continue-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .continue-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-2);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .continue-content {
+            flex: 1;
+        }
+
+        .continue-subject {
+            font-size: 0.875rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .continue-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">N</div>
+                <span data-translate="title">Nyigisha</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="active" data-page="dashboard" data-translate="nav-dashboard">Dashboard</li>
+                <li data-page="about" data-translate="nav-about">About Us</li>
+                <li data-page="entrepreneurship" data-translate="nav-entrepreneurship">Entrepreneurship</li>
+                <li data-page="courses" data-translate="nav-courses">My Courses</li>
+                <li data-page="practice" data-translate="nav-practice">Practice</li>
+            </ul>
+            <div class="user-info">
+                <div class="language-toggle" onclick="toggleLanguage()" title="Translate to Kinyarwanda">
+                    <span class="language-flag">🇷🇼</span>
+                    <span class="language-text" data-translate="lang-toggle">Kinyarwanda</span>
+                </div>
+                <div class="user-avatar">MS</div>
+                <span class="user-name">Mugisha Samuel</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo">
+                <div class="logo-icon">N</div>
+                <span style="color: #fff;">Nyigisha</span>
+            </div>
+            <button class="mobile-nav-close" onclick="toggleMobileMenu()">×</button>
+        </div>
+        <ul class="mobile-nav-menu">
+            <li class="active" data-page="dashboard" data-translate="nav-dashboard">Dashboard</li>
+            <li data-page="about" data-translate="nav-about">About Us</li>
+            <li data-page="entrepreneurship" data-translate="nav-entrepreneurship">Entrepreneurship</li>
+            <li data-page="courses" data-translate="nav-courses">My Courses</li>
+            <li data-page="practice" data-translate="nav-practice">Practice</li>
+        </ul>
+        <div style="margin-top: 2rem;">
+            <div class="language-toggle" onclick="toggleLanguage()" style="width: 100%; justify-content: center;">
+                <span class="language-flag">🇷🇼</span>
+                <span class="language-text" data-translate="lang-toggle">Translate to Kinyarwanda</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page active">
+        <div class="container">
+            <div class="welcome-banner animate-in">
+                <div class="welcome-content">
+                    <div class="welcome-badge" data-translate="badge">Rwanda's #1 Learning Platform</div>
+                    <h1><span data-translate="welcome-back">Welcome back,</span> <span>John!</span></h1>
+                    <p data-translate="welcome-desc">Continue your learning journey with content aligned to the REB & NESA Curriculum.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card animate-in stagger-1">
+                    <div class="stat-icon cyan">📚</div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label" data-translate="stat-subjects">Active Subjects</div>
+                </div>
+                <div class="stat-card animate-in stagger-2">
+                    <div class="stat-icon green">📊</div>
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label" data-translate="stat-score">Average Score</div>
+                </div>
+                <div class="stat-card animate-in stagger-3">
+                    <div class="stat-icon yellow">✅</div>
+                    <div class="stat-number">47</div>
+                    <div class="stat-label" data-translate="stat-lessons">Lessons Done</div>
+                </div>
+                <div class="stat-card animate-in stagger-4">
+                    <div class="stat-icon purple">❓</div>
+                    <div class="stat-number">156</div>
+                    <div class="stat-label" data-translate="stat-questions">Questions Solved</div>
+                </div>
+            </div>
+
+            <div class="section-header animate-in stagger-5">
+                <h2 class="section-title" data-translate="quick-access">Quick Access</h2>
+            </div>
+            <div class="card-grid">
+                <div class="card animate-in stagger-1" onclick="showPage('courses')">
+                    <div class="card-icon cyan">📚</div>
+                    <div class="card-title" data-translate="card-video-title">Video Lessons</div>
+                    <div class="card-description" data-translate="card-video-desc">Access high-quality video lessons for all subjects, taught by experienced Rwandan teachers.</div>
+                </div>
+                <div class="card animate-in stagger-2" onclick="showPage('practice')">
+                    <div class="card-icon yellow">✍️</div>
+                    <div class="card-title" data-translate="card-practice-title">Practice & Exams</div>
+                    <div class="card-description" data-translate="card-practice-desc">Test your knowledge with quizzes, unit tests, and full exam simulations.</div>
+                </div>
+                <div class="card animate-in stagger-3" onclick="showPage('entrepreneurship')">
+                    <div class="card-icon purple">💼</div>
+                    <div class="card-title" data-translate="card-entrepreneur-title">Entrepreneurship</div>
+                    <div class="card-description" data-translate="card-entrepreneur-desc">Learn business skills with lessons in Kinyarwanda and English for better understanding.</div>
+                </div>
+                <div class="card animate-in stagger-4" onclick="showPage('about')">
+                    <div class="card-icon green">🎯</div>
+                    <div class="card-title" data-translate="card-about-title">Our Mission</div>
+                    <div class="card-description" data-translate="card-about-desc">Learn more about Nyigisha and how we're bridging the learning gap in Rwanda.</div>
+                </div>
+            </div>
+
+            <div class="section-header animate-in stagger-5">
+                <h2 class="section-title" data-translate="continue-learning">Continue Learning</h2>
+                <span class="section-link" onclick="showPage('courses')" data-translate="view-all">View All →</span>
+            </div>
+            <div class="continue-card animate-in stagger-6">
+                <div class="continue-icon">💼</div>
+                <div class="continue-content">
+                    <div class="continue-subject">ENTREPRENEURSHIP • S3</div>
+                    <div class="continue-title" data-translate="continue-entrepreneurship">Ibiganiro ku Bucuruzi</div>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label" data-translate="progress">Progress</span>
+                            <span class="progress-value">35%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 35%"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="showPage('entrepreneurship')" data-translate="btn-continue">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Page -->
+    <div id="about" class="page">
+        <div class="container">
+            <div class="about-section animate-in">
+                <div class="about-content">
+                    <h2 data-translate="about-title">Nyigisha: The Digital Bridge to Rwanda's Vision 2050</h2>
+                    <p data-translate="about-intro">"Nyigisha" means "teach me", and that is exactly what millions of learners are asking for today.</p>
+                    
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem;" data-translate="problem-title">The Problem We're Solving</h3>
+                    <p data-translate="problem-desc">The crisis is three-fold:</p>
+                    <ul style="margin-left: 2rem; margin-top: 1rem; line-height: 2;">
+                        <li data-translate="problem-1"><strong>The Classroom Squeeze:</strong> While we've built 11,000 classrooms, P1 ratios remain as high as 76:1</li>
+                        <li data-translate="problem-2"><strong>The Shadow Education Trap:</strong> 40% of parents are paying for 'mentors' who lack training</li>
+                        <li data-translate="problem-3"><strong>The Comprehension Ceiling:</strong> World Bank data shows only 37.5% of P3 students are proficient in English</li>
+                    </ul>
+                    
+                    <p style="margin-top: 1.5rem;" data-translate="problem-detail">Most digital learning platforms available today are English-only, especially in science subjects. For students who have not fully mastered academic English, comprehension becomes a barrier instead of a bridge. The problem is not a lack of effort — it is inefficiency, inequality, and inaccessibility.</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title" data-translate="team-title">Our Team</h2>
+            </div>
+            
+            <p style="margin-bottom: 2rem; font-size: 1.125rem; color: var(--text-secondary);" data-translate="team-intro">We aren't just students; we are a fusion of youth innovators, educators, and tech-driven problem solvers. We have lived the challenges of the Rwandan classroom, and we have the combined technical and entrepreneurial mindset to fix it.</p>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <h3>Djasmine</h3>
+                    <p data-translate="team-djasmine">The Visionary - Product Strategy & User Experience</p>
+                </div>
+                <div class="team-card">
+                    <h3>Tech Team</h3>
+                    <p data-translate="team-tech">Platform Development & Innovation</p>
+                </div>
+                <div class="team-card">
+                    <h3>Education Team</h3>
+                    <p data-translate="team-education">Content Creation & Curriculum Alignment</p>
+                </div>
+                <div class="team-card">
+                    <h3>Community Team</h3>
+                    <p data-translate="team-community">Outreach & Student Support</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 3rem;">
+                <h2 class="section-title" data-translate="impact-title">Who We Serve</h2>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon cyan">🏫</div>
+                    <div class="card-title" data-translate="serve-rural">Rural Students</div>
+                    <div class="card-description" data-translate="serve-rural-desc">Students in remote areas who lack access to quality teachers and learning resources.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon yellow">👨‍👩‍👧‍👦</div>
+                    <div class="card-title" data-translate="serve-parents">Parents</div>
+                    <div class="card-description" data-translate="serve-parents-desc">Parents seeking affordable, quality education alternatives to expensive private tutoring.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon green">📚</div>
+                    <div class="card-title" data-translate="serve-language">Language Learners</div>
+                    <div class="card-description" data-translate="serve-language-desc">Students who struggle with English-only content and need lessons in Kinyarwanda.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Entrepreneurship Page -->
+    <div id="entrepreneurship" class="page">
+        <div class="container">
+            <div class="entrepreneurship-hero animate-in">
+                <h1 data-translate="entrepreneur-hero">Entrepreneurship</h1>
+                <p data-translate="entrepreneur-subtitle">Kwiga ubucuruzi mu rurimi rwawe - Learn Business in Your Language</p>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title" data-translate="video-lesson">Video Lesson: Multiple Choice Questions</h2>
+            </div>
+
+            <div class="video-container" id="videoContainer">
+                <video id="mainVideo" controls>
+                    <source src="/mnt/user-data/uploads/Entrepreneurship_Multiple_choice_questions_and_answers_Mukinyarwanda_by_Teacher_Cedric__-_Teacher_Cedric_Vibes____720p__h264___online-video-cutter_com_.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="lesson-content animate-in stagger-1">
+                <h3 data-translate="lesson-overview">📚 Lesson Overview</h3>
+                <p data-translate="lesson-overview-desc">This lesson covers entrepreneurship fundamentals with multiple choice questions explained in Kinyarwanda by Teacher Cedric. Perfect for students preparing for exams or wanting to understand business concepts in their native language.</p>
+            </div>
+
+            <div class="lesson-content animate-in stagger-2">
+                <h3 data-translate="key-topics">🎯 Key Topics Covered</h3>
+                <ul>
+                    <li data-translate="topic-1">Ibisobanuro by'ubucuruzi (Business Definitions)</li>
+                    <li data-translate="topic-2">Ubwoko bw'ubucuruzi (Types of Business)</li>
+                    <li data-translate="topic-3">Inyungu n'ingaruka z'ubucuruzi (Benefits and Challenges of Business)</li>
+                    <li data-translate="topic-4">Amasoko n'abaguzi (Markets and Customers)</li>
+                    <li data-translate="topic-5">Gukora isesengura ry'isoko (Market Analysis)</li>
+                </ul>
+            </div>
+
+            <div class="lesson-content animate-in stagger-3">
+                <h3 data-translate="why-kinyarwanda">💡 Why Learn in Kinyarwanda?</h3>
+                <p data-translate="why-kinyarwanda-desc">Research shows that students understand concepts better when taught in their mother tongue. At Nyigisha, we believe that language should never be a barrier to learning. Our bilingual approach ensures:</p>
+                <ul>
+                    <li data-translate="benefit-1">Better comprehension of complex business concepts</li>
+                    <li data-translate="benefit-2">Increased confidence in exam preparation</li>
+                    <li data-translate="benefit-3">Connection between classroom theory and real-world application</li>
+                    <li data-translate="benefit-4">Accessibility for rural students with limited English proficiency</li>
+                </ul>
+            </div>
+
+            <div class="card-grid" style="margin-top: 2rem;">
+                <div class="card" onclick="showPage('practice')">
+                    <div class="card-icon cyan">📝</div>
+                    <div class="card-title" data-translate="practice-quiz">Practice Quiz</div>
+                    <div class="card-description" data-translate="practice-quiz-desc">Test your understanding with interactive quizzes based on this lesson.</div>
+                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" data-translate="start-quiz">Start Quiz</button>
+                </div>
+                <div class="card">
+                    <div class="card-icon yellow">📚</div>
+                    <div class="card-title" data-translate="more-lessons">More Lessons</div>
+                    <div class="card-description" data-translate="more-lessons-desc">Explore our complete entrepreneurship course with 20+ video lessons.</div>
+                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" onclick="showPage('courses')" data-translate="view-course">View Course</button>
+                </div>
+                <div class="card">
+                    <div class="card-icon green">🎥</div>
+                    <div class="card-title" data-translate="live-help">Live Help</div>
+                    <div class="card-description" data-translate="live-help-desc">Join live tutoring sessions or ask questions to experienced teachers.</div>
+                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" data-translate="join-session">Join Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Page -->
+    <div id="courses" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" style="font-size: 2rem;" data-translate="my-courses">My Courses</h1>
+            </div>
+
+            <div class="card-grid">
+                <div class="card" onclick="showPage('entrepreneurship')">
+                    <div class="card-icon purple">💼</div>
+                    <div class="card-title" data-translate="course-entrepreneur">Entrepreneurship</div>
+                    <div class="card-description" data-translate="course-entrepreneur-desc">Business fundamentals in Kinyarwanda & English</div>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label" data-translate="progress">Progress</span>
+                            <span class="progress-value">35%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 35%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon cyan">🔢</div>
+                    <div class="card-title" data-translate="course-math">Mathematics</div>
+                    <div class="card-description" data-translate="course-math-desc">Algebra, Geometry, Statistics</div>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label" data-translate="progress">Progress</span>
+                            <span class="progress-value">65%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon yellow">⚡</div>
+                    <div class="card-title" data-translate="course-physics">Physics</div>
+                    <div class="card-description" data-translate="course-physics-desc">Mechanics, Electricity, Waves</div>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label" data-translate="progress">Progress</span>
+                            <span class="progress-value">45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon green">🧪</div>
+                    <div class="card-title" data-translate="course-chemistry">Chemistry</div>
+                    <div class="card-description" data-translate="course-chemistry-desc">Atoms, Reactions, Organic Chemistry</div>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label" data-translate="progress">Progress</span>
+                            <span class="progress-value">30%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 30%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon pink">📖</div>
+                    <div class="card-title" data-translate="course-english">English</div>
+                    <div class="card-description" data-translate="course-english-desc">Grammar, Literature, Writing</div>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label" data-translate="progress">Progress</span>
+                            <span class="progress-value">70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: rgba(236, 72, 153, 0.15);">🇷🇼</div>
+                    <div class="card-title" data-translate="course-kinyarwanda">Kinyarwanda</div>
+                    <div class="card-description" data-translate="course-kinyarwanda-desc">Inyandiko, Ubuvanganzo, Imvugo</div>
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label" data-translate="progress">Iterambere</span>
+                            <span class="progress-value">80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Practice Page -->
+    <div id="practice" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" style="font-size: 2rem;" data-translate="practice-title">Practice & Exams</h1>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon cyan">📝</div>
+                    <div class="card-title" data-translate="quiz-title">Topic Quizzes</div>
+                    <div class="card-description" data-translate="quiz-desc">Quick quizzes to test your understanding of each topic</div>
+                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" data-translate="start-quiz">Start Quiz</button>
+                </div>
+                <div class="card">
+                    <div class="card-icon yellow">📋</div>
+                    <div class="card-title" data-translate="test-title">Unit Tests</div>
+                    <div class="card-description" data-translate="test-desc">Comprehensive tests covering entire units</div>
+                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" data-translate="take-test">Take Test</button>
+                </div>
+                <div class="card">
+                    <div class="card-icon pink">🎓</div>
+                    <div class="card-title" data-translate="exam-title">Exam Simulations</div>
+                    <div class="card-description" data-translate="exam-desc">Full O-Level and A-Level exam practice</div>
+                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" data-translate="start-exam">Start Exam</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Translations Object
+        const translations = {
+            en: {
+                'title': 'Nyigisha',
+                'nav-dashboard': 'Dashboard',
+                'nav-about': 'About Us',
+                'nav-entrepreneurship': 'Entrepreneurship',
+                'nav-courses': 'My Courses',
+                'nav-practice': 'Practice',
+                'lang-toggle': 'Kinyarwanda',
+                'badge': "Rwanda's #1 Learning Platform",
+                'welcome-back': 'Welcome back,',
+                'welcome-desc': 'Continue your learning journey with content aligned to the REB & NESA Curriculum.',
+                'stat-subjects': 'Active Subjects',
+                'stat-score': 'Average Score',
+                'stat-lessons': 'Lessons Done',
+                'stat-questions': 'Questions Solved',
+                'quick-access': 'Quick Access',
+                'card-video-title': 'Video Lessons',
+                'card-video-desc': 'Access high-quality video lessons for all subjects, taught by experienced Rwandan teachers.',
+                'card-practice-title': 'Practice & Exams',
+                'card-practice-desc': 'Test your knowledge with quizzes, unit tests, and full exam simulations.',
+                'card-entrepreneur-title': 'Entrepreneurship',
+                'card-entrepreneur-desc': 'Learn business skills with lessons in Kinyarwanda and English for better understanding.',
+                'card-about-title': 'Our Mission',
+                'card-about-desc': "Learn more about Nyigisha and how we're bridging the learning gap in Rwanda.",
+                'continue-learning': 'Continue Learning',
+                'view-all': 'View All →',
+                'continue-entrepreneurship': 'Business Fundamentals',
+                'progress': 'Progress',
+                'btn-continue': 'Continue',
+                'about-title': "Nyigisha: The Digital Bridge to Rwanda's Vision 2050",
+                'about-intro': '"Nyigisha" means "teach me", and that is exactly what millions of learners are asking for today.',
+                'problem-title': "The Problem We're Solving",
+                'problem-desc': 'The crisis is three-fold:',
+                'problem-1': '<strong>The Classroom Squeeze:</strong> While we\'ve built 11,000 classrooms, P1 ratios remain as high as 76:1',
+                'problem-2': '<strong>The Shadow Education Trap:</strong> 40% of parents are paying for \'mentors\' who lack training',
+                'problem-3': '<strong>The Comprehension Ceiling:</strong> World Bank data shows only 37.5% of P3 students are proficient in English',
+                'problem-detail': "Most digital learning platforms available today are English-only, especially in science subjects. For students who have not fully mastered academic English, comprehension becomes a barrier instead of a bridge. The problem is not a lack of effort — it is inefficiency, inequality, and inaccessibility.",
+                'team-title': 'Our Team',
+                'team-intro': "We aren't just students; we are a fusion of youth innovators, educators, and tech-driven problem solvers. We have lived the challenges of the Rwandan classroom, and we have the combined technical and entrepreneurial mindset to fix it.",
+                'team-djasmine': 'The Visionary - Product Strategy & User Experience',
+                'team-tech': 'Platform Development & Innovation',
+                'team-education': 'Content Creation & Curriculum Alignment',
+                'team-community': 'Outreach & Student Support',
+                'impact-title': 'Who We Serve',
+                'serve-rural': 'Rural Students',
+                'serve-rural-desc': 'Students in remote areas who lack access to quality teachers and learning resources.',
+                'serve-parents': 'Parents',
+                'serve-parents-desc': 'Parents seeking affordable, quality education alternatives to expensive private tutoring.',
+                'serve-language': 'Language Learners',
+                'serve-language-desc': 'Students who struggle with English-only content and need lessons in Kinyarwanda.',
+                'entrepreneur-hero': 'Entrepreneurship',
+                'entrepreneur-subtitle': 'Kwiga ubucuruzi mu rurimi rwawe - Learn Business in Your Language',
+                'video-lesson': 'Video Lesson: Multiple Choice Questions',
+                'lesson-overview': '📚 Lesson Overview',
+                'lesson-overview-desc': 'This lesson covers entrepreneurship fundamentals with multiple choice questions explained in Kinyarwanda by Teacher Cedric. Perfect for students preparing for exams or wanting to understand business concepts in their native language.',
+                'key-topics': '🎯 Key Topics Covered',
+                'topic-1': 'Ibisobanuro by\'ubucuruzi (Business Definitions)',
+                'topic-2': 'Ubwoko bw\'ubucuruzi (Types of Business)',
+                'topic-3': 'Inyungu n\'ingaruka z\'ubucuruzi (Benefits and Challenges of Business)',
+                'topic-4': 'Amasoko n\'abaguzi (Markets and Customers)',
+                'topic-5': 'Gukora isesengura ry\'isoko (Market Analysis)',
+                'why-kinyarwanda': '💡 Why Learn in Kinyarwanda?',
+                'why-kinyarwanda-desc': 'Research shows that students understand concepts better when taught in their mother tongue. At Nyigisha, we believe that language should never be a barrier to learning. Our bilingual approach ensures:',
+                'benefit-1': 'Better comprehension of complex business concepts',
+                'benefit-2': 'Increased confidence in exam preparation',
+                'benefit-3': 'Connection between classroom theory and real-world application',
+                'benefit-4': 'Accessibility for rural students with limited English proficiency',
+                'practice-quiz': 'Practice Quiz',
+                'practice-quiz-desc': 'Test your understanding with interactive quizzes based on this lesson.',
+                'start-quiz': 'Start Quiz',
+                'more-lessons': 'More Lessons',
+                'more-lessons-desc': 'Explore our complete entrepreneurship course with 20+ video lessons.',
+                'view-course': 'View Course',
+                'live-help': 'Live Help',
+                'live-help-desc': 'Join live tutoring sessions or ask questions to experienced teachers.',
+                'join-session': 'Join Session',
+                'my-courses': 'My Courses',
+                'course-entrepreneur': 'Entrepreneurship',
+                'course-entrepreneur-desc': 'Business fundamentals in Kinyarwanda & English',
+                'course-math': 'Mathematics',
+                'course-math-desc': 'Algebra, Geometry, Statistics',
+                'course-physics': 'Physics',
+                'course-physics-desc': 'Mechanics, Electricity, Waves',
+                'course-chemistry': 'Chemistry',
+                'course-chemistry-desc': 'Atoms, Reactions, Organic Chemistry',
+                'course-english': 'English',
+                'course-english-desc': 'Grammar, Literature, Writing',
+                'course-kinyarwanda': 'Kinyarwanda',
+                'course-kinyarwanda-desc': 'Inyandiko, Ubuvanganzo, Imvugo',
+                'practice-title': 'Practice & Exams',
+                'quiz-title': 'Topic Quizzes',
+                'quiz-desc': 'Quick quizzes to test your understanding of each topic',
+                'test-title': 'Unit Tests',
+                'test-desc': 'Comprehensive tests covering entire units',
+                'take-test': 'Take Test',
+                'exam-title': 'Exam Simulations',
+                'exam-desc': 'Full O-Level and A-Level exam practice',
+                'start-exam': 'Start Exam'
+            },
+            rw: {
+                'title': 'Nyigisha',
+                'nav-dashboard': 'Ibanze',
+                'nav-about': 'Ibyerekeye',
+                'nav-entrepreneurship': 'Ubucuruzi',
+                'nav-courses': 'Amasomo yanjye',
+                'nav-practice': 'Imyitozo',
+                'lang-toggle': 'English',
+                'badge': 'Urubuga rwa mbere rwo kwiga mu Rwanda',
+                'welcome-back': 'Murakaza neza,',
+                'welcome-desc': 'Komeza urugendo rwawe rwo kwiga hamwe nibirimo byajyanye na REB & NESA.',
+                'stat-subjects': 'Amasomo akora',
+                'stat-score': 'Amanota yo hagati',
+                'stat-lessons': 'Amasomo yarangiye',
+                'stat-questions': 'Ibibazo byakemutse',
+                'quick-access': 'Injira byihuse',
+                'card-video-title': 'Amasomo ya Video',
+                'card-video-desc': 'Injira mu masomo ya video y\'ubwiza bwo mu rwego rwo hejuru ku masomo yose, yigishwa n\'abarimu b\'abanyarwanda bafite uburambe.',
+                'card-practice-title': 'Imyitozo n\'ibizamini',
+                'card-practice-desc': 'Gerageza ubumenyi bwawe hamwe n\'ibizamini, ibizamini by\'ibice, n\'ibizamini byuzuye.',
+                'card-entrepreneur-title': 'Ubucuruzi',
+                'card-entrepreneur-desc': 'Wiga ubuhanga bwo mu bucuruzi hamwe n\'amasomo mu Kinyarwanda n\'Icyongereza kugira ngo wumve neza.',
+                'card-about-title': 'Intego yacu',
+                'card-about-desc': 'Wige byinshi kuri Nyigisha n\'uburyo dukora kugira ngo dukuremo ikinyuranyo cy\'ubumenyi mu Rwanda.',
+                'continue-learning': 'Komeza kwiga',
+                'view-all': 'Reba byose →',
+                'continue-entrepreneurship': 'Ibiganiro ku Bucuruzi',
+                'progress': 'Iterambere',
+                'btn-continue': 'Komeza',
+                'about-title': 'Nyigisha: Ikiraro cy\'ikoranabuhanga kugeza kuri Vision 2050 y\'u Rwanda',
+                'about-intro': '"Nyigisha" bivuze "nyigisha", kandi nicyo imiliyoni y\'abiga basaba uyu munsi.',
+                'problem-title': 'Ikibazo dukemura',
+                'problem-desc': 'Ikibazo gifite ibice bitatu:',
+                'problem-1': '<strong>Kubuzwa k\'amaklasi:</strong> Nubwo twubatse amaklasi 11,000, umubare w\'abanyeshuri ba P1 ukomeza kuba 76:1',
+                'problem-2': '<strong>Umutego w\'uburezi bw\'igicucu:</strong> 40% by\'ababyeyi biha amafaranga \'abarimu\' badafite imyitozo',
+                'problem-3': '<strong>Urwego rwo gusobanukirwa:</strong> Amakuru y\'ikigega cy\'isi yerekana ko 37.5% gusa by\'abanyeshuri ba P3 bazi Icyongereza',
+                'problem-detail': 'Urubuga rwinshi rwo kwiga mu buryo bwa digitale ruhari uyu munsi ruri mu Cyongereza gusa, cyane cyane mu masomo y\'ubumenyi. Ku banyeshuri batasobanukiwe neza icyongereza cy\'ishuri, gusobanukirwa biba inzitizi aho kuba ikiraro. Ikibazo si ukubura imbaraga — ni ukudakora neza, kubangamirwa, no kudashobora kuboneka.',
+                'team-title': 'Itsinda ryacu',
+                'team-intro': 'Ntabwo turi abanyeshuri gusa; turi ihuriro ry\'abashoramari b\'urubyiruko, abarimu, n\'abakemura ibibazo n\'ikoranabuhanga. Tubayeho ingorane z\'ishuri ryu Rwanda, kandi dufite imitekerereze yombi y\'ubuhanga n\'ubucuruzi yo gukemura.',
+                'team-djasmine': 'Umubona wa kure - Ingamba z\'ibicuruzwa & Uburambe bw\'abakoresha',
+                'team-tech': 'Iterambere ry\'urubuga & Udushya',
+                'team-education': 'Gukora ibirimo & Guhuza integanyanyigisho',
+                'team-community': 'Kwamamaza & Gufasha abanyeshuri',
+                'impact-title': 'Twakora abo tukorera',
+                'serve-rural': 'Abanyeshuri bo mu cyaro',
+                'serve-rural-desc': 'Abanyeshuri bo mu turere twa kure badafite ubushobozi bwo kubona abarimu ndetse n\'ibikoresho byo kwiga byiza.',
+                'serve-parents': 'Ababyeyi',
+                'serve-parents-desc': 'Ababyeyi bashaka uburezi bwiza kandi buhendutse mu mwanya w\'uburezi bwihariye buhenze.',
+                'serve-language': 'Abiga Ururimi',
+                'serve-language-desc': 'Abanyeshuri bananiranwa n\'ibirimo byo mu Cyongereza gusa kandi bakeneye amasomo mu Kinyarwanda.',
+                'entrepreneur-hero': 'Ubucuruzi',
+                'entrepreneur-subtitle': 'Kwiga ubucuruzi mu rurimi rwawe',
+                'video-lesson': 'Isomo rya Video: Ibibazo by\'amahitamo menshi',
+                'lesson-overview': '📚 Incamake y\'Isomo',
+                'lesson-overview-desc': 'Iri somo ryerekana inyigisho z\'ibanze z\'ubucuruzi hamwe n\'ibibazo by\'amahitamo menshi byasobanuwe mu Kinyarwanda n\'Umwarimu Cedric. Nibyiza cyane ku banyeshuri bitegura ibizamini cyangwa bashaka gusobanukirwa ibitekerezo byo mu bucuruzi mu rurimi rwabo kavukire.',
+                'key-topics': '🎯 Ingingo z\'ingenzi ziganirwaho',
+                'topic-1': 'Ibisobanuro by\'ubucuruzi',
+                'topic-2': 'Ubwoko bw\'ubucuruzi',
+                'topic-3': 'Inyungu n\'ingaruka z\'ubucuruzi',
+                'topic-4': 'Amasoko n\'abaguzi',
+                'topic-5': 'Gukora isesengura ry\'isoko',
+                'why-kinyarwanda': '💡 Kuki kwiga mu Kinyarwanda?',
+                'why-kinyarwanda-desc': 'Ubushakashatsi bwerekana ko abanyeshuri basobanukirwa ibitekerezo neza iyo bigishwa mu rurimi rwabo kavukire. Kuri Nyigisha, twizera ko ururimi ntigomba kuba inzitizi yo kwiga. Uburyo bwacu bw\'indimi ebyiri bubungabunga:',
+                'benefit-1': 'Gusobanukirwa neza ibitekerezo by\'ubucuruzi bigoye',
+                'benefit-2': 'Kwiyemeza cyane mu gutegura ibizamini',
+                'benefit-3': 'Ihuza hagati y\'inyigisho z\'ishuri n\'ibikorwa by\'ukuri',
+                'benefit-4': 'Kuboneka ku banyeshuri bo mu cyaro bafite ubushobozi buke bwo mu Cyongereza',
+                'practice-quiz': 'Ikizamini cyo kwimenyereza',
+                'practice-quiz-desc': 'Gerageza gusobanukirwa kwawe hamwe n\'ibizamini bifatika bishingiye kuri iri somo.',
+                'start-quiz': 'Tangira ikizamini',
+                'more-lessons': 'Andi masomo',
+                'more-lessons-desc': 'Suzuma isomo ryacu ryuzuye ry\'ubucuruzi rifite amasomo 20+ ya video.',
+                'view-course': 'Reba isomo',
+                'live-help': 'Ubufasha buteganye',
+                'live-help-desc': 'Injira mu masomo yo kwigisha mu buryo butaziguye cyangwa ubaze ibibazo ku barimu bafite uburambe.',
+                'join-session': 'Injira mu kiganiro',
+                'my-courses': 'Amasomo yanjye',
+                'course-entrepreneur': 'Ubucuruzi',
+                'course-entrepreneur-desc': 'Inyigisho z\'ibanze z\'ubucuruzi mu Kinyarwanda & Icyongereza',
+                'course-math': 'Imibare',
+                'course-math-desc': 'Algebra, Geometriya, Imibare',
+                'course-physics': 'Fizike',
+                'course-physics-desc': 'Mekaniki, Amashanyarazi, Imiyoboro',
+                'course-chemistry': 'Chimie',
+                'course-chemistry-desc': 'Atome, Imikorere, Chimie Organike',
+                'course-english': 'Icyongereza',
+                'course-english-desc': 'Ikinamabwirizwa, Ubuvanganzo, Kwandika',
+                'course-kinyarwanda': 'Ikinyarwanda',
+                'course-kinyarwanda-desc': 'Inyandiko, Ubuvanganzo, Imvugo',
+                'practice-title': 'Imyitozo n\'ibizamini',
+                'quiz-title': 'Ibizamini by\'ingingo',
+                'quiz-desc': 'Ibizamini bihuse byo kugenzura gusobanukirwa kwawe ku ngingo imwe nimwe',
+                'test-title': 'Ibizamini by\'ibice',
+                'test-desc': 'Ibizamini byuzuye bifite ibice byose',
+                'take-test': 'Fata ikizamini',
+                'exam-title': 'Ibizamini byo kwiga',
+                'exam-desc': 'Imyitozo yuzuye y\'ibizamini bya O-Level na A-Level',
+                'start-exam': 'Tangira ikizamini'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Language Toggle Function
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'rw' : 'en';
+            updateTranslations();
+            
+            // Update toggle button
+            const toggles = document.querySelectorAll('.language-toggle');
+            toggles.forEach(toggle => {
+                if (currentLanguage === 'rw') {
+                    toggle.classList.add('active');
+                } else {
+                    toggle.classList.remove('active');
+                }
+            });
+        }
+
+        // Update all translations on the page
+        function updateTranslations() {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[currentLanguage][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[currentLanguage][key];
+                    } else {
+                        element.innerHTML = translations[currentLanguage][key];
+                    }
+                }
+            });
+        }
+
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            document.querySelectorAll('.nav-menu li').forEach(li => {
+                li.classList.remove('active');
+                if (li.dataset.page === pageId) {
+                    li.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('.mobile-nav-menu li').forEach(li => {
+                li.classList.remove('active');
+                if (li.dataset.page === pageId) {
+                    li.classList.add('active');
+                }
+            });
+
+            closeMobileMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Navigation event listeners
+        document.querySelectorAll('.nav-menu li').forEach(li => {
+            li.addEventListener('click', () => showPage(li.dataset.page));
+        });
+
+        document.querySelectorAll('.mobile-nav-menu li').forEach(li => {
+            li.addEventListener('click', () => showPage(li.dataset.page));
+        });
+
+        // Mobile menu
+        function toggleMobileMenu() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileNav').classList.remove('active');
+        }
+
+        // Video player functionality
+        const video = document.getElementById('mainVideo');
+        if (video) {
+            video.addEventListener('loadeddata', () => {
+                console.log('Video loaded successfully');
+            });
+
+            video.addEventListener('error', (e) => {
+                console.error('Video loading error:', e);
+            });
+        }
+
+        console.log('Nyigisha Learning Platform loaded successfully');
+    </script>
+</body>
+</html>
