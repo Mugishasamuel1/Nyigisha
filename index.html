@@ -1144,112 +1144,6 @@
             border-color: #ef4444;
             background: rgba(239, 68, 68, 0.1);
         }
-
-        /* Teachers Hub */
-        .teacher-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .teacher-card {
-            background: var(--surface-elevated);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .teacher-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .teacher-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: var(--gradient-2);
-            color: #0f172a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-
-        .teacher-meta h3 {
-            font-size: 1.125rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .teacher-meta p {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        .teacher-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .teacher-tag {
-            padding: 0.25rem 0.6rem;
-            border-radius: 999px;
-            background: rgba(34, 211, 238, 0.12);
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .teacher-card-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .teacher-form {
-            background: var(--surface-elevated);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            display: grid;
-            gap: 1rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-        }
-
-        .form-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.35rem;
-        }
-
-        .form-field input,
-        .form-field textarea,
-        .form-field select {
-            width: 100%;
-            padding: 0.75rem 0.85rem;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text-primary);
-            font-family: inherit;
-        }
-
-        .form-field textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
     </style>
 </head>
 <body>
@@ -1266,7 +1160,6 @@
                 <li data-page="live" data-translate="nav-live">Live Tutors</li>
                 <li data-page="practice" data-translate="nav-practice">Practice</li>
                 <li data-page="progress" data-translate="nav-progress">Progress</li>
-                <li data-page="teachers" data-translate="nav-teachers">Teachers</li>
                 <li data-page="about" data-translate="nav-about">About Us</li>
                 <li data-page="entrepreneurship" data-translate="nav-entrepreneurship">Entrepreneurship</li>
             </ul>
@@ -1297,7 +1190,6 @@
             <li data-page="live" data-translate="nav-live">Live Tutors</li>
             <li data-page="practice" data-translate="nav-practice">Practice</li>
             <li data-page="progress" data-translate="nav-progress">Progress</li>
-            <li data-page="teachers" data-translate="nav-teachers">Teachers</li>
             <li data-page="about" data-translate="nav-about">About Us</li>
             <li data-page="entrepreneurship" data-translate="nav-entrepreneurship">My progress</li>
         </ul>
@@ -2083,130 +1975,6 @@
         </div>
     </div>
 
-    <!-- Teachers Page -->
-    <div id="teachers" class="page">
-        <div class="container">
-            <div class="section-header">
-                <h1 class="section-title" style="font-size: 2rem;" data-translate="teachers-title">Teacher Hub</h1>
-            </div>
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;" data-translate="teachers-intro">Build your teaching profile, highlight your education background, and receive lesson requests from learners.</p>
-
-            <div class="section-header">
-                <h2 class="section-title" data-translate="teachers-featured">Featured Teachers</h2>
-            </div>
-            <div class="teacher-grid">
-                <div class="teacher-card">
-                    <div class="teacher-header">
-                        <div class="teacher-avatar">JP</div>
-                        <div class="teacher-meta">
-                            <h3>Jean Pierre Uwase</h3>
-                            <p>Mathematics • 8 yrs experience</p>
-                        </div>
-                    </div>
-                    <p style="color: var(--text-secondary);">MSc in Education, University of Rwanda. Passionate about simplifying algebra and exam prep.</p>
-                    <div class="teacher-tags">
-                        <span class="teacher-tag">O-Level</span>
-                        <span class="teacher-tag">Live Classes</span>
-                        <span class="teacher-tag">Exam Coaching</span>
-                    </div>
-                    <div class="teacher-card-actions">
-                        <button class="btn btn-primary">Ask for Offer</button>
-                        <button class="btn btn-outline">View Profile</button>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-header">
-                        <div class="teacher-avatar">MC</div>
-                        <div class="teacher-meta">
-                            <h3>Marie Claire Mukamana</h3>
-                            <p>Physics • 6 yrs experience</p>
-                        </div>
-                    </div>
-                    <p style="color: var(--text-secondary);">BSc Physics, African Leadership University. Focused on hands-on experiments and conceptual learning.</p>
-                    <div class="teacher-tags">
-                        <span class="teacher-tag">S1-S3</span>
-                        <span class="teacher-tag">STEM Labs</span>
-                        <span class="teacher-tag">Mentorship</span>
-                    </div>
-                    <div class="teacher-card-actions">
-                        <button class="btn btn-primary">Ask for Offer</button>
-                        <button class="btn btn-outline">View Profile</button>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-header">
-                        <div class="teacher-avatar">GM</div>
-                        <div class="teacher-meta">
-                            <h3>Grace Mutoni</h3>
-                            <p>English • 10 yrs experience</p>
-                        </div>
-                    </div>
-                    <p style="color: var(--text-secondary);">MA in Literature, University of Kigali. Coaching students on writing, debate, and presentation skills.</p>
-                    <div class="teacher-tags">
-                        <span class="teacher-tag">Essay Writing</span>
-                        <span class="teacher-tag">A-Level</span>
-                        <span class="teacher-tag">Debate Club</span>
-                    </div>
-                    <div class="teacher-card-actions">
-                        <button class="btn btn-primary">Ask for Offer</button>
-                        <button class="btn btn-outline">View Profile</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-header" style="margin-top: 2rem;">
-                <h2 class="section-title" data-translate="teachers-profile">Create Your Teacher Profile</h2>
-            </div>
-            <div class="teacher-form">
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="teacher-name" data-translate="teachers-name">Full Name</label>
-                        <input id="teacher-name" type="text" placeholder="e.g. Alice Irakoze">
-                    </div>
-                    <div class="form-field">
-                        <label for="teacher-subject" data-translate="teachers-subject">Primary Subject</label>
-                        <select id="teacher-subject">
-                            <option>Mathematics</option>
-                            <option>Physics</option>
-                            <option>Chemistry</option>
-                            <option>Biology</option>
-                            <option>English</option>
-                            <option>Kinyarwanda</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="teacher-education" data-translate="teachers-education">Education Background</label>
-                        <input id="teacher-education" type="text" placeholder="Degree, institution, year">
-                    </div>
-                    <div class="form-field">
-                        <label for="teacher-experience" data-translate="teachers-experience">Years of Experience</label>
-                        <input id="teacher-experience" type="number" min="0" placeholder="e.g. 5">
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label for="teacher-bio" data-translate="teachers-bio">Short Bio</label>
-                    <textarea id="teacher-bio" placeholder="Share your teaching approach and specialties."></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="teacher-availability" data-translate="teachers-availability">Availability</label>
-                        <input id="teacher-availability" type="text" placeholder="Weekdays 5-8 PM">
-                    </div>
-                    <div class="form-field">
-                        <label for="teacher-rate" data-translate="teachers-rate">Offer/Rate</label>
-                        <input id="teacher-rate" type="text" placeholder="e.g. 20,000 RWF / session">
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-primary" data-translate="teachers-submit">Publish Profile</button>
-                    <button class="btn btn-outline" data-translate="teachers-request">Request an Offer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Translations Object
         const translations = {
@@ -2219,7 +1987,6 @@
                 'nav-courses': 'My Courses',
                 'nav-practice': 'Practice',
                 'nav-progress': 'Progress',
-                'nav-teachers': 'Teachers',
                 'lang-toggle': 'Kinyarwanda',
                 'badge': "Rwanda's #1 Learning Platform",
                 'welcome-back': 'Welcome back,',
@@ -2334,7 +2101,6 @@
                 'nav-courses': 'Amasomo yanjye',
                 'nav-practice': 'Imyitozo',
                 'nav-progress': 'Iterambere',
-                'nav-teachers': 'Abarimu',
                 'lang-toggle': 'English',
                 'badge': 'Urubuga rwa mbere rwo kwiga mu Rwanda',
                 'welcome-back': 'Murakaza neza,',
