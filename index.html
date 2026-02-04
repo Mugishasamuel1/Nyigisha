@@ -507,6 +507,13 @@
             line-height: 1.6;
         }
 
+        .card-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
         /* Video Player Styles */
         .video-container {
             background: #0f172a;
@@ -755,6 +762,17 @@
             background: var(--border);
         }
 
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 1024px) {
             .stats-grid {
@@ -950,6 +968,182 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
+
+        /* Class Explorer */
+        .class-selector {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .class-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--surface-elevated);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .class-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .class-btn.active {
+            background: var(--gradient-2);
+            color: #0f172a;
+            border-color: transparent;
+        }
+
+        .subject-card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            transition: all 0.2s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .subject-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .subject-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .topic-list {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+        }
+
+        .topic-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: var(--radius-md);
+        }
+
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+
+        .topic-item:hover {
+            background: rgba(34, 211, 238, 0.08);
+            transform: translateX(6px);
+        }
+
+        .lesson-player {
+            background: #0f172a;
+            border-radius: var(--radius-lg);
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-player::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.2), transparent 60%);
+            opacity: 0.4;
+        }
+
+        /* Live Tutors */
+        .exam-card {
+            background: var(--gradient-1);
+            color: #ffffff;
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::after {
+            content: '🎯';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 6rem;
+            opacity: 0.15;
+        }
+
+        .live-class-card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ef4444;
+            color: #fff;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.8125rem;
+        }
+
+        /* Practice Quiz */
+        .question-card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+        }
+
+        .answer-option {
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .answer-option:hover {
+            border-color: var(--accent);
+            background: rgba(34, 211, 238, 0.08);
+            transform: translateX(4px);
+        }
+
+        .answer-option.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .answer-option.wrong {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -962,10 +1156,12 @@
             </div>
             <ul class="nav-menu">
                 <li class="active" data-page="dashboard" data-translate="nav-dashboard">Dashboard</li>
+                <li data-page="courses" data-translate="nav-courses">My Courses</li>
+                <li data-page="live" data-translate="nav-live">Live Tutors</li>
+                <li data-page="practice" data-translate="nav-practice">Practice</li>
+                <li data-page="progress" data-translate="nav-progress">Progress</li>
                 <li data-page="about" data-translate="nav-about">About Us</li>
                 <li data-page="entrepreneurship" data-translate="nav-entrepreneurship">Entrepreneurship</li>
-                <li data-page="courses" data-translate="nav-courses">My Courses</li>
-                <li data-page="practice" data-translate="nav-practice">Practice</li>
             </ul>
             <div class="user-info">
                 <div class="language-toggle" onclick="toggleLanguage()" title="Translate to Kinyarwanda">
@@ -990,10 +1186,12 @@
         </div>
         <ul class="mobile-nav-menu">
             <li class="active" data-page="dashboard" data-translate="nav-dashboard">Dashboard</li>
+            <li data-page="courses" data-translate="nav-courses">My Courses</li>
+            <li data-page="live" data-translate="nav-live">Live Tutors</li>
+            <li data-page="practice" data-translate="nav-practice">Practice</li>
+            <li data-page="progress" data-translate="nav-progress">Progress</li>
             <li data-page="about" data-translate="nav-about">About Us</li>
             <li data-page="entrepreneurship" data-translate="nav-entrepreneurship">My progress</li>
-            <li data-page="courses" data-translate="nav-courses">My Courses</li>
-            <li data-page="practice" data-translate="nav-practice">Practice</li>
         </ul>
         <div style="margin-top: 2rem;">
             <div class="language-toggle" onclick="toggleLanguage()" style="width: 100%; justify-content: center;">
@@ -1318,6 +1516,287 @@
                     </div>
                 </div>
             </div>
+
+            <div class="section-header" style="margin-top: 2.5rem;">
+                <h2 class="section-title">Explore by Class</h2>
+            </div>
+            <div class="class-selector">
+                <button class="class-btn active">Primary (P1-P6)</button>
+                <button class="class-btn">O-Level (S1-S3)</button>
+                <button class="class-btn">A-Level (S4-S6)</button>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Select Your Class</h2>
+            </div>
+            <div class="card-grid">
+                <div class="card" onclick="showSubjects('S3')">
+                    <div class="card-icon purple">S3</div>
+                    <div class="card-title">Senior 3</div>
+                    <div class="card-description">12 subjects available</div>
+                </div>
+                <div class="card" onclick="showSubjects('S2')">
+                    <div class="card-icon yellow">S2</div>
+                    <div class="card-title">Senior 2</div>
+                    <div class="card-description">11 subjects available</div>
+                </div>
+                <div class="card" onclick="showSubjects('S1')">
+                    <div class="card-icon green">S1</div>
+                    <div class="card-title">Senior 1</div>
+                    <div class="card-description">11 subjects available</div>
+                </div>
+            </div>
+
+            <div id="subjects-section" style="display: none;">
+                <div class="section-header" style="margin-top: 2rem;">
+                    <h2 class="section-title">Available Subjects</h2>
+                </div>
+                <div class="card-grid">
+                    <div class="card" onclick="showTopics('Mathematics')">
+                        <div class="card-icon cyan">🔢</div>
+                        <div class="card-title">Mathematics</div>
+                        <div class="card-description">Algebra, Geometry, Statistics</div>
+                        <div class="progress-container" style="margin-top: 1rem;">
+                            <div class="progress-info">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-value">65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showTopics('Physics')">
+                        <div class="card-icon yellow">⚡</div>
+                        <div class="card-title">Physics</div>
+                        <div class="card-description">Mechanics, Electricity, Waves</div>
+                        <div class="progress-container" style="margin-top: 1rem;">
+                            <div class="progress-info">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-value">45%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showTopics('Chemistry')">
+                        <div class="card-icon green">🧪</div>
+                        <div class="card-title">Chemistry</div>
+                        <div class="card-description">Atoms, Reactions, Organic</div>
+                        <div class="progress-container" style="margin-top: 1rem;">
+                            <div class="progress-info">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-value">30%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showTopics('Biology')">
+                        <div class="card-icon purple">🌱</div>
+                        <div class="card-title">Biology</div>
+                        <div class="card-description">Cells, Genetics, Ecology</div>
+                        <div class="progress-container" style="margin-top: 1rem;">
+                            <div class="progress-info">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-value">55%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 55%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showTopics('English')">
+                        <div class="card-icon pink">📖</div>
+                        <div class="card-title">English</div>
+                        <div class="card-description">Grammar, Literature, Writing</div>
+                        <div class="progress-container" style="margin-top: 1rem;">
+                            <div class="progress-info">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-value">70%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showTopics('Kinyarwanda')">
+                        <div class="card-icon">🇷🇼</div>
+                        <div class="card-title">Kinyarwanda</div>
+                        <div class="card-description">Inyandiko, Ubuvanganzo</div>
+                        <div class="progress-container" style="margin-top: 1rem;">
+                            <div class="progress-info">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-value">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="topics-section" style="display: none;">
+                <div class="section-header" style="margin-top: 2rem;">
+                    <h2 class="section-title">Topics - <span id="subject-name">Mathematics</span></h2>
+                </div>
+                <div class="topic-list">
+                    <div class="topic-item" onclick="showLesson()">
+                        <h3>1. Algebra &amp; Equations</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Linear equations, Quadratic equations, Simultaneous equations</p>
+                        <div class="progress-container" style="margin-top: 0.75rem;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topic-item" onclick="showLesson()">
+                        <h3>2. Functions &amp; Graphs</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Linear functions, Quadratic functions, Graphing</p>
+                        <div class="progress-container" style="margin-top: 0.75rem;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topic-item" onclick="showLesson()">
+                        <h3>3. Geometry</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Angles, Triangles, Circles, Polygons</p>
+                        <div class="progress-container" style="margin-top: 0.75rem;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topic-item" onclick="showLesson()">
+                        <h3>4. Statistics &amp; Probability</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Data analysis, Mean, Median, Mode, Probability</p>
+                        <div class="progress-container" style="margin-top: 0.75rem;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="lesson-section" style="display: none;">
+                <div class="section-header" style="margin-top: 2rem;">
+                    <h2 class="section-title">Lesson: Linear Equations</h2>
+                </div>
+                <div class="lesson-player">
+                    <div style="text-align: center; position: relative; z-index: 1;">
+                        <div style="font-size: 3rem;">▶️</div>
+                        <p style="font-weight: 600; margin-top: 0.5rem;">Video Lesson: Solving Linear Equations</p>
+                        <p style="opacity: 0.7;">Duration: 15:32</p>
+                    </div>
+                </div>
+
+                <div class="subject-card">
+                    <h3 style="margin-bottom: 0.75rem;">Lesson Notes</h3>
+                    <p>A linear equation is an equation between two variables that gives a straight line when plotted on a graph.</p>
+                    <p style="margin-top: 1rem; font-weight: 600;">Key Points:</p>
+                    <ul style="margin-left: 1.25rem; margin-top: 0.75rem; line-height: 1.8;">
+                        <li>General form: ax + b = c</li>
+                        <li>To solve: isolate the variable</li>
+                        <li>Always check your answer</li>
+                    </ul>
+                </div>
+
+                <div class="subject-card">
+                    <h3 style="margin-bottom: 0.75rem;">Solved Example</h3>
+                    <p style="font-weight: 600;">Solve: 3x + 5 = 14</p>
+                    <div style="margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; background: var(--surface); padding: 1rem; border-radius: var(--radius-md);">
+                        3x + 5 = 14<br>
+                        3x = 14 - 5<br>
+                        3x = 9<br>
+                        x = 3
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-primary">Watch Video Explanation</button>
+                        <button class="btn btn-outline" onclick="showPage('practice')">Practice Questions</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Tutors Page -->
+    <div id="live" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" style="font-size: 2rem;">Live Tutoring</h1>
+            </div>
+
+            <div class="exam-card">
+                <h2 style="font-size: 1.75rem;">🎯 Exam Prep Week!</h2>
+                <p style="margin-top: 0.75rem;">Join intensive revision sessions for upcoming O-Level exams</p>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Live Now</h2>
+            </div>
+            <div class="live-class-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                    <div>
+                        <span class="live-badge">🔴 LIVE NOW</span>
+                        <h3 style="margin-top: 0.75rem;">Mathematics - Quadratic Equations</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Teacher: Jean Pierre Uwase</p>
+                        <p style="color: var(--text-secondary);">156 students watching</p>
+                    </div>
+                    <button class="btn btn-primary">Join Now</button>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2 class="section-title">Upcoming Classes</h2>
+            </div>
+            <div class="card" style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                    <div>
+                        <h3>Physics - Electricity &amp; Circuits</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Teacher: Marie Claire Mukamana</p>
+                        <p style="color: var(--text-secondary);">Today at 3:00 PM</p>
+                    </div>
+                    <button class="btn btn-outline">Set Reminder</button>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                    <div>
+                        <h3>Chemistry - Chemical Reactions</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Teacher: Emmanuel Nkurunziza</p>
+                        <p style="color: var(--text-secondary);">Tomorrow at 10:00 AM</p>
+                    </div>
+                    <button class="btn btn-outline">Set Reminder</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                    <div>
+                        <h3>English - Essay Writing Skills</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Teacher: Grace Mutoni</p>
+                        <p style="color: var(--text-secondary);">Tomorrow at 2:00 PM</p>
+                    </div>
+                    <button class="btn btn-outline">Set Reminder</button>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2 class="section-title">One-on-One Tutoring</h2>
+            </div>
+            <div class="card">
+                <h3>Book a Private Session</h3>
+                <p style="color: var(--text-secondary); margin-top: 0.75rem;">Get personalized help from expert tutors on topics you find challenging.</p>
+                <div class="card-actions">
+                    <button class="btn btn-primary">Schedule Session</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1333,7 +1812,7 @@
                     <div class="card-icon cyan">📝</div>
                     <div class="card-title" data-translate="quiz-title">Topic Quizzes</div>
                     <div class="card-description" data-translate="quiz-desc">Quick quizzes to test your understanding of each topic</div>
-                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" data-translate="start-quiz">Start Quiz</button>
+                    <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" onclick="startQuiz()" data-translate="start-quiz">Start Quiz</button>
                 </div>
                 <div class="card">
                     <div class="card-icon yellow">📋</div>
@@ -1348,6 +1827,151 @@
                     <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" data-translate="start-exam">Start Exam</button>
                 </div>
             </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2 class="section-title">Hard Questions Explained</h2>
+            </div>
+            <div class="card">
+                <h3>Mathematics - Challenging Problems</h3>
+                <p style="color: var(--text-secondary); margin-top: 0.75rem;">Watch expert teachers solve the most difficult exam questions step by step</p>
+                <div class="card-actions">
+                    <button class="btn btn-outline">Watch Explanations</button>
+                </div>
+            </div>
+
+            <div id="quiz-section" style="display: none; margin-top: 2rem;">
+                <div class="section-header">
+                    <h2 class="section-title">Quiz: Linear Equations</h2>
+                </div>
+                <div class="question-card">
+                    <h3>Question 1 of 10</h3>
+                    <p style="margin-top: 1rem; font-weight: 600;">Solve for x: 2x + 7 = 15</p>
+                    <div class="answer-option" onclick="checkAnswer(this, false)">A) x = 3</div>
+                    <div class="answer-option" onclick="checkAnswer(this, true)">B) x = 4</div>
+                    <div class="answer-option" onclick="checkAnswer(this, false)">C) x = 5</div>
+                    <div class="answer-option" onclick="checkAnswer(this, false)">D) x = 6</div>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 1rem;">Next Question</button>
+            </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2 class="section-title">Recent Scores</h2>
+            </div>
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);">
+                    <span style="font-weight: 600;">Mathematics Quiz - Algebra</span>
+                    <span style="color: #22c55e; font-weight: 700;">85%</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                    <span style="font-weight: 600;">Physics Quiz - Forces</span>
+                    <span style="color: #22c55e; font-weight: 700;">92%</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 0.75rem;">
+                    <span style="font-weight: 600;">Chemistry Quiz - Atoms</span>
+                    <span style="color: #f59e0b; font-weight: 700;">68%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Page -->
+    <div id="progress" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" style="font-size: 2rem;">My Progress</h1>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">Overall Performance</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Hours This Month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Questions Solved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Active Subjects</div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2 class="section-title">Subject Performance</h2>
+            </div>
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div>
+                        <h3>Mathematics</h3>
+                        <p style="color: var(--text-secondary);">Strong performance - Keep it up!</p>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #22c55e;">85%</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%"></div>
+                </div>
+            </div>
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div>
+                        <h3>Physics</h3>
+                        <p style="color: var(--text-secondary);">Good progress - Review electricity topics</p>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #22c55e;">78%</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 78%"></div>
+                </div>
+            </div>
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div>
+                        <h3>Chemistry</h3>
+                        <p style="color: #f59e0b;">Needs attention - Practice more on reactions</p>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #f59e0b;">65%</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%; background: var(--gradient-3);"></div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2 class="section-title">Areas to Improve</h2>
+            </div>
+            <div class="card">
+                <h3>Recommended Focus</h3>
+                <ul style="margin-top: 0.75rem; margin-left: 1.25rem; line-height: 1.9;">
+                    <li>Chemistry - Chemical Reactions &amp; Equations</li>
+                    <li>Physics - Electricity &amp; Circuits</li>
+                    <li>Mathematics - Statistics &amp; Probability</li>
+                </ul>
+                <div class="card-actions">
+                    <button class="btn btn-primary">Start Improvement Plan</button>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2 class="section-title">Recent Activity</h2>
+            </div>
+            <div class="card">
+                <div style="padding: 1rem 0; border-bottom: 1px solid var(--border);">
+                    <strong>Completed:</strong> Mathematics - Linear Equations Quiz
+                    <div style="color: var(--text-secondary); margin-top: 0.5rem;">Score: 85% • 2 hours ago</div>
+                </div>
+                <div style="padding: 1rem 0; border-bottom: 1px solid var(--border);">
+                    <strong>Watched:</strong> Physics - Electricity Video Lesson
+                    <div style="color: var(--text-secondary); margin-top: 0.5rem;">5 hours ago</div>
+                </div>
+                <div style="padding-top: 1rem;">
+                    <strong>Attended:</strong> Live Class - Chemistry Reactions
+                    <div style="color: var(--text-secondary); margin-top: 0.5rem;">Yesterday at 3:00 PM</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1357,10 +1981,12 @@
             en: {
                 'title': 'Nyigisha',
                 'nav-dashboard': 'Dashboard',
+                'nav-live': 'Live Tutors',
                 'nav-about': 'About Us',
                 'nav-entrepreneurship': 'Entrepreneurship',
                 'nav-courses': 'My Courses',
                 'nav-practice': 'Practice',
+                'nav-progress': 'Progress',
                 'lang-toggle': 'Kinyarwanda',
                 'badge': "Rwanda's #1 Learning Platform",
                 'welcome-back': 'Welcome back,',
@@ -1456,10 +2082,12 @@
             rw: {
                 'title': 'Nyigisha',
                 'nav-dashboard': 'Ibanze',
+                'nav-live': 'Abarimu bifuza live',
                 'nav-about': 'Ibyerekeye',
                 'nav-entrepreneurship': 'Ubucuruzi',
                 'nav-courses': 'Amasomo yanjye',
                 'nav-practice': 'Imyitozo',
+                'nav-progress': 'Iterambere',
                 'lang-toggle': 'English',
                 'badge': 'Urubuga rwa mbere rwo kwiga mu Rwanda',
                 'welcome-back': 'Murakaza neza,',
@@ -1653,6 +2281,86 @@
                 console.error('Video loading error:', e);
             });
         }
+
+        function showSubjects(className) {
+            const subjectsSection = document.getElementById('subjects-section');
+            const topicsSection = document.getElementById('topics-section');
+            const lessonSection = document.getElementById('lesson-section');
+
+            if (subjectsSection) {
+                subjectsSection.style.display = 'block';
+            }
+            if (topicsSection) {
+                topicsSection.style.display = 'none';
+            }
+            if (lessonSection) {
+                lessonSection.style.display = 'none';
+            }
+
+            if (subjectsSection) {
+                subjectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function showTopics(subjectName) {
+            const subjectLabel = document.getElementById('subject-name');
+            const topicsSection = document.getElementById('topics-section');
+            const lessonSection = document.getElementById('lesson-section');
+
+            if (subjectLabel) {
+                subjectLabel.textContent = subjectName;
+            }
+            if (topicsSection) {
+                topicsSection.style.display = 'block';
+            }
+            if (lessonSection) {
+                lessonSection.style.display = 'none';
+            }
+
+            if (topicsSection) {
+                topicsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function showLesson() {
+            const lessonSection = document.getElementById('lesson-section');
+            if (lessonSection) {
+                lessonSection.style.display = 'block';
+                lessonSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function startQuiz() {
+            const quizSection = document.getElementById('quiz-section');
+            if (quizSection) {
+                quizSection.style.display = 'block';
+                quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function checkAnswer(element, isCorrect) {
+            document.querySelectorAll('.answer-option').forEach(option => {
+                option.classList.remove('correct', 'wrong');
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                document.querySelectorAll('.answer-option').forEach(option => {
+                    if (option.textContent.includes('B)')) {
+                        option.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        document.querySelectorAll('.class-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.class-btn').forEach(inner => inner.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
 
         console.log('Nyigisha Learning Platform loaded successfully');
     </script>
